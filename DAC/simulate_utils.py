@@ -1,5 +1,5 @@
 # Copyright (c) 2024 urgent-challenge.
-# Licensed under the MIT License.
+# Licensed under the Apache 2.0 License.
 # Source: https://github.com/urgent-challenge/urgent2025_challenge
 
 import ast

@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Descript INCORPORATION.
+# Copyright (c) 2023-present, Descript
 # Licensed under the MIT license.
 # Source: https://github.com/descriptinc/descript-audio-codec
 

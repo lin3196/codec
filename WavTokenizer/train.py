@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Xiaobin-Rong.
+# Copyright (c) 2025 Xiaobin-Rong.
 # Adapted under MIT LICENSE.
 # Source: https://github.com/Xiaobin-Rong/SEtrain
 

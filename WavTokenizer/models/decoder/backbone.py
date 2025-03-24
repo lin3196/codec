@@ -1,4 +1,4 @@
-# Copyright (c) 2025 jishengpeng.
+# Copyright (c) 2024 jishengpeng.
 # LICENSE under the MIT license.
 # Source: https://github.com/jishengpeng/WavTokenizer
 
