@@ -1,0 +1,111 @@
+model_config:
+  encoder:
+    channels: 1
+    dimension: 512
+    n_filters: 32
+    n_residual_layers: 1
+    ratios: [8, 5, 4, 2]
+    activation: ELU
+    activation_params:
+      alpha: 1.0
+    norm: weight_norm
+    kernel_size: 7
+    last_kernel_size: 7
+    residual_kernel_size: 3
+    dilation_base: 2
+    causal: False
+    pad_mode: reflect
+    true_skip: False
+    compress: 2
+    lstm: 2
+
+  quantizer:
+    input_dim: 512
+    n_codebooks: 1
+    codebook_size: 4096
+    codebook_dim: 8
+    quantizer_dropout: 0.0
+
+  decoder:
+    input_channels: 512
+    dim: 768
+    intermediate_dim: 2304
+    num_layers: 12
+    # adanorm_num_embeddings: 4
+
+  head:
+    dim: 768
+    n_fft: 1280
+    hop_length: 320
+
+discriminator_config:
+  mpd:
+    mpd_reshapes: [2, 3, 5, 7, 11]
+  mbd:
+    mbd_fft_sizes: [2048, 1024, 512]
+
+DDP:
+  world_size: 8
+
+optimizer:
+  lr: 1e-4
+
+scheduler:
+  warmup_steps: 10000  # 20 epochs
+  decay_until_step: 100000  # 200 epochs
+  max_lr: 2e-4
+  min_lr: 1e-6
+
+loss:
+  sampling_rate: 16000
+  n_mels: [5, 10, 20, 40, 80, 160, 320]
+  window_lengths: [32, 64, 128, 256, 512, 1024, 2048]
+  mag_weight: 0.0
+  log_weight: 1.0
+  pow: 1.0
+  weight: 1.0
+  window_type: "hann"
+
+coeff:
+  recons: 15
+  commit: 0.25
+  codebook: 1
+  adv: 2
+  feat: 1
+
+train_dataset:
+  cfg_yaml: /home/nis/xiaobin.rong/challenge/urgent2/official_tools/conf/simulation_train.yaml
+  wav_len: 3
+  num_per_epoch: 16000 # 500 iters/epoch
+  random_start: True
+  fft_len: 0.032
+  selected_fs: [16000, 22050, 24000, 32000, 44100, 48000]
+  mode: train
+
+train_dataloader:
+  batch_size: 16
+  num_workers: 4
+  drop_last: True
+  pin_memory: True
+
+validation_dataset:
+  cfg_yaml: "/home/nis/xiaobin.rong/challenge/urgent2/official_tools/conf/simulation_validation.yaml"
+  wav_len: 4
+  num_per_epoch: 500
+  random_start: true
+  fft_len: 0.032
+  selected_fs: [16000, 22050, 24000, 32000, 44100, 48000]
+  mode: validation
+
+validation_dataloader:
+  batch_size: 1
+  num_workers: 4
+  pin_memory: true
+
+trainer:
+  epochs: 200
+  save_checkpoint_interval: 10
+  clip_grad_norm_value: 3.0
+  exp_path: /data/hdd0/xiaobin.rong/experiments/study_codec/WavTokenizer/exp_wavtokenizer
+  resume: false
+  resume_datetime: "2025-03-17-15h06m"
